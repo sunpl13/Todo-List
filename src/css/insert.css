@@ -1,0 +1,26 @@
+.form {
+  display: flex;
+}
+
+.form input {
+  flex: 1;
+  font-size: 1.5rem;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #61b2e9;
+}
+
+.add_btn {
+  padding: 5px 10px;
+  margin-left: 10px;
+  background: #a7e28d;
+  border-radius: 3px;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+.add_btn:hover {
+  background: #ff7373;
+}

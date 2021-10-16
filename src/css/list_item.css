@@ -1,0 +1,16 @@
+.todo_item {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.todo_item:hover {
+  background: #e3fafc;
+}
+
+.todo-item:hover .remove {
+  opacity: 1;
+}
