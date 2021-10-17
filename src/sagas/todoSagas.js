@@ -4,7 +4,6 @@ import {
   put,
   all,
   delay,
-  take,
   fork,
   call,
 } from "redux-saga/effects";
@@ -48,8 +47,9 @@ function* CreateTodoAsnc({ payload }) {
   //매개변수로 data 전달
   try {
     const res = yield call(CreateTodoHandler, payload);
-    if (res.status === 200) {
+    if (res.status === 201) {
       //데이터를 정상적으로 받아왔다면
+      alert("입력 성공");
 
       yield put(CreateTodoSuccess(res.data)); //
     }
@@ -63,7 +63,7 @@ function* DeleteTodoAsnc(id) {
   //매개변수로 data 전달
   try {
     const res = yield call(DeleteTodoHandler, id);
-    if (res.status === 200) {
+    if (res.status === 201) {
       //데이터를 정상적으로 받아왔다면
       yield delay(300);
       yield put(DeleteTodoSuccess(res.data)); //
@@ -99,10 +99,7 @@ function* CreateTodo() {
 
 //삭제
 function* DeleteTodo() {
-  while (true) {
-    const { payload: id } = yield take(type.DELETE_TODO_LOADING);
-    yield call(DeleteTodoHandler, id);
-  }
+  yield takeEvery(type.DELETE_TODO_LOADING, DeleteTodoAsnc);
 }
 
 //수정
