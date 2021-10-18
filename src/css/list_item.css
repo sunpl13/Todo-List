@@ -11,7 +11,7 @@
   background: #e3fafc;
 }
 
-.todo-item:hover .remove {
+.todo_item:hover .remove {
   opacity: 1;
 }
 
@@ -42,4 +42,26 @@
   margin-left: 1rem;
   color: #3bc9db;
   font-weight: 800;
+}
+
+.edit {
+  padding-right: 10px;
+  cursor: pointer;
+  display: flex;
+}
+
+.edit:hover {
+  transform: translate(1px, 1px);
+}
+
+.change_todo input {
+  flex: 1;
+  font-size: 1.1rem;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #61b2e9;
+}
+.date {
+  margin-right: 4rem;
+  color: #e1e1e1;
 }

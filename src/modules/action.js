@@ -20,8 +20,9 @@ export const CreateTodoLoading = (data) => ({
   payload: data,
 });
 
-export const CreateTodoSuccess = () => ({
+export const CreateTodoSuccess = (data) => ({
   type: type.CREATE_TODO_SUCCESS,
+  payload: data,
 });
 
 export const CreateTodoFail = (err) => ({
@@ -51,11 +52,28 @@ export const ModifyTodoLoading = (todoinfo) => ({
   payload: todoinfo,
 });
 
-export const ModifyTodoSuccess = () => ({
+export const ModifyTodoSuccess = (todoinfo) => ({
   type: type.MODIFY_TODO_SUCCESS,
+  payload: todoinfo,
 });
 
 export const ModifyTodoFail = (err) => ({
   type: type.MODIFY_TODO_FAIL,
+  payload: err,
+});
+
+//토글 수정(완료여부)
+export const ModifyToggleLoading = (id) => ({
+  type: type.MODIFY_TOGGLE_LOADING,
+  payload: id,
+});
+
+export const ModifyToggleSuccess = (data) => ({
+  type: type.MODIFY_TOGGLE_SUCCESS,
+  payload: data,
+});
+
+export const ModifyToggleFail = (err) => ({
+  type: type.MODIFY_TOGGLE_FAIL,
   payload: err,
 });

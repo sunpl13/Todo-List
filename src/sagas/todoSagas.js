@@ -18,12 +18,15 @@ import {
   DeleteTodoFail,
   ModifyTodoSuccess,
   ModifyTodoFail,
+  ModifyToggleSuccess,
+  ModifyToggleFail,
 } from "../modules/action";
 import {
   GetTodoHandler,
   CreateTodoHandler,
   DeleteTodoHandler,
   ModifyTodoHandler,
+  ToggleTodoHandler,
 } from "../api";
 
 /* ---------------------------worker------------------------- */
@@ -34,8 +37,7 @@ function* GetTodoAsnc() {
     const res = yield call(GetTodoHandler);
     if (res.status === 200) {
       //데이터를 정상적으로 받아왔다면
-      yield delay(300); //0.3초 딜레이
-      yield put(GetTodoSuccess(res.data)); //
+      yield put(GetTodoSuccess(res.data));
     }
   } catch (error) {
     yield put(GetTodoFail(error.res.data));
@@ -47,9 +49,9 @@ function* CreateTodoAsnc({ payload }) {
   //매개변수로 data 전달
   try {
     const res = yield call(CreateTodoHandler, payload);
+    console.log(res);
     if (res.status === 201) {
       //데이터를 정상적으로 받아왔다면
-      alert("입력 성공");
 
       yield put(CreateTodoSuccess(res.data)); //
     }
@@ -59,14 +61,17 @@ function* CreateTodoAsnc({ payload }) {
 }
 
 //삭제
-function* DeleteTodoAsnc(id) {
+function* DeleteTodoAsnc({ payload }) {
   //매개변수로 data 전달
+  console.log(payload);
   try {
-    const res = yield call(DeleteTodoHandler, id);
-    if (res.status === 201) {
+    const res = yield call(DeleteTodoHandler, payload);
+    console.log(res);
+    if (res.status === 200) {
       //데이터를 정상적으로 받아왔다면
+
       yield delay(300);
-      yield put(DeleteTodoSuccess(res.data)); //
+      yield put(DeleteTodoSuccess(payload)); //
     }
   } catch (error) {
     yield put(DeleteTodoFail(error.res.data));
@@ -74,15 +79,33 @@ function* DeleteTodoAsnc(id) {
 }
 
 //수정
-function* ModifyTodoAsnc({ payload: { id, content } }) {
+function* ModifyTodoAsnc({ payload }) {
+  console.log(payload);
   try {
-    console.log("id :", id, "content : ", content);
-    const res = yield call(ModifyTodoHandler, id, content);
+    const res = yield call(ModifyTodoHandler, payload.id, payload);
+    console.log(res);
     if (res.status === 200) {
-      yield put(ModifyTodoSuccess());
+      yield put(ModifyTodoSuccess(res.data));
     }
   } catch (err) {
     yield put(ModifyTodoFail(err.res.data));
+  }
+}
+
+//체크여부
+function* ToggleTodoAsnc({ payload }) {
+  //매개변수로 data 전달
+  console.log(payload);
+  try {
+    const res = yield call(ToggleTodoHandler, payload.id, payload);
+    console.log(res);
+    if (res.status === 200) {
+      //데이터를 정상적으로 받아왔다면
+      yield delay(300);
+      yield put(ModifyToggleSuccess(res.data)); //
+    }
+  } catch (error) {
+    yield put(ModifyToggleFail(error.res.data));
   }
 }
 
@@ -107,11 +130,17 @@ function* ModifyTodo() {
   yield takeLatest(type.MODIFY_TODO_LOADING, ModifyTodoAsnc);
 }
 
+//체크여부 수정
+function* ToggleTodo() {
+  yield takeEvery(type.MODIFY_TOGGLE_LOADING, ToggleTodoAsnc);
+}
+
 const todoSagas = [
   fork(GetTodoData),
   fork(CreateTodo),
   fork(DeleteTodo),
   fork(ModifyTodo),
+  fork(ToggleTodo),
 ];
 
 export default function* rootSaga() {
