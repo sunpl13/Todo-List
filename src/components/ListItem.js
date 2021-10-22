@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import "../css/list_item.css";
-import EditImg from "../edit.png";
-import Check from "../check.png";
 
 function ListItem(props) {
   const {
@@ -69,7 +67,10 @@ function ListItem(props) {
             }}
           >
             <div className="date">{active === id ? "" : date}</div>
-            <img src={EditImg} alt="수정버튼" />
+            <img
+              src={process.env.PUBLIC_URL + "/images/edit.png"}
+              alt="수정버튼"
+            />
           </div>
         ) : (
           //입력이 있다면 값을 다르게 보여줌
@@ -81,7 +82,12 @@ function ListItem(props) {
               editToggleHandler();
             }}
           >
-            <img src={Check} width="20" height="20" alt="수정확인 버튼" />
+            <img
+              src={process.env.PUBLIC_URL + "/images/check.png"}
+              width="20"
+              height="20"
+              alt="수정확인 버튼"
+            />
           </div>
         )
       ) : (
@@ -93,7 +99,10 @@ function ListItem(props) {
           }}
         >
           <div className="date">{active === id ? "" : date}</div>
-          <img src={EditImg} alt="수정버튼" />
+          <img
+            src={process.env.PUBLIC_URL + "/images/edit.png"}
+            alt="수정버튼"
+          />
         </div>
       )}
       {checked && <div className="check-mark">✓</div>}

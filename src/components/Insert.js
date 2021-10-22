@@ -14,6 +14,7 @@ function Insert() {
 
   //  todolist 생성 함수
   const insertHandler = () => {
+    //id 값이 주어지지 않을 때
     dispatch(
       CreateTodoLoading({
         id: list.length === 0 ? 0 : list[list.length - 1].id + 1, //배열의 마지막 인덱스의 id 값에서 +1
@@ -22,6 +23,15 @@ function Insert() {
         isCheck: false,
       })
     );
+    /*     id 값이 주어졌을 때
+    dispatch(
+      CreateTodoLoading({
+        content: todo,
+        createdAt: date,
+        isCheck: false,
+      })
+    );
+    */
     settodo("");
   };
   return (
