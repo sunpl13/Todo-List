@@ -1,5 +1,6 @@
 import * as type from "./actionType";
 
+//조회
 export const GetTodoLoading = () => ({
   type: type.GET_TODO_LOADING,
 });

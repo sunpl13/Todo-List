@@ -1,70 +1,194 @@
-# Getting Started with Create React App
+# 📋TODO-List
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## **💬소개**
 
-## Available Scripts
+&nbsp;
 
-In the project directory, you can run:
+> React와 Redux-Saga를 이용한 TODO-List!
 
-### `npm start`
+![투두리스트](https://user-images.githubusercontent.com/68778883/138549999-193a2f68-c2c9-40fc-9b9f-8748d47ef5be.PNG)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+&nbsp;
+&nbsp;
+&nbsp;
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# 📦패키지
 
-### `npm test`
+&nbsp;
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+redux
+```
 
-### `npm run build`
+```
+redux-saga
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+&nbsp;
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# 📁폴더구조
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+&nbsp;
 
-### `npm run eject`
+```javascript
+├─TODO
+│  │  README.md
+│  │  package.json
+│  │  .env
+│  ├─public
+│  │  ├─images
+│  │  │  ├─check.png
+│  │  │  └─edit.png
+│  │  │ index.html
+│  │  │ //이하 중략
+│  │  └ manifest.json
+│  └─src
+│     ├─components
+│     │  ├─Insert.js
+│     │  ├─ListItem.js
+│     │  └ TodoList.js
+│     ├─css
+│     │  ├─App.css
+│     │  ├─insert.css
+│     │  └ list_item.css
+│     ├─modules
+│     │  ├─redux
+│     │  │  ├─reducer.js
+│     │  │  ├─store.js
+│     │  │  └─rootReducer.js
+│     │  ├─action.js
+│     │  └ actionType.js
+│     ├─sagas
+│     │  └ todoSagas.js
+│     ├─api.js
+│     ├─App.js
+│     └ index.js
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+&nbsp;
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# 📝설명
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## **.env**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+서버 통신을 하면서 알려지면 안되는 민감한 정보(서버 URL)를 env 파일에 저장해 놓았다.
 
-## Learn More
+기본적으로 env 파일은 gitignore에 설정해서 push 하지 않지만 가벼운 todolist이므로 push했다.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+REACT_APP_URL = http://dummy-server.io
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+가져와서 쓸 때는 아래처럼 가져와서 쓴다.
 
-### Code Splitting
+```javascript
+const url = process.env.REACT_APP_URL;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<br/>
 
-### Analyzing the Bundle Size
+## **api.js**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+redux-saga에서 실질적으로 서버통신을 할 Rest API 문서이다.
 
-### Making a Progressive Web App
+```javascript
+//투두리스트 데이터 가져오기
+export const GetTodoHandler = async () => await axios.get(`${url}`);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+//투두리스트 생성
+export const CreateTodoHandler = async (todoData) =>
+  await axios.post(`${url}`, todoData);
 
-### Advanced Configuration
+//투두리스트 삭제
+export const DeleteTodoHandler = async (id) =>
+  await axios.delete(`${url}/${id}`);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+//투두리스트 수정
+export const ModifyTodoHandler = async (id, todoinfo) =>
+  await axios.put(`${url}/${id}`, todoinfo);
 
-### Deployment
+//체크여부 수정
+export const ToggleTodoHandler = async (id, cheked) =>
+  await axios.put(`${url}/${id}`, cheked);
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## **action.js**
 
-### `npm run build` fails to minify
+redux의 액션이 일어날 액션 생성 함수를 정의 하였다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```javascript
+//조회
+export const GetTodoLoading = () => ({
+type: type.GET_TODO_LOADING,
+});
+
+export const GetTodoSuccess = (data) => ({
+type: type.GET_TODO_SUCCESS,
+payload: data,
+});
+
+...     //이하 중략
+```
+
+## **actionType.js**
+
+액션 타입을 정의
+
+```javascript
+//조회
+export const GET_TODO_LOADING = "GET_TODO_LOADING";
+export const GET_TODO_SUCCESS = "GET_TODO_SUCCESS";
+export const GET_TODO_FAIL = "GET_TODO_FAIL";
+
+//생성
+export const CREATE_TODO_LOADING = "CREATE_TODO_LOADING";
+export const CREATE_TODO_SUCCESS = "CREATE_TODO_SUCCESS";
+export const CREATE_TODO_FAIL = "CREATE_TODO_FAIL";
+
+//삭제
+export const DELETE_TODO_LOADING = "DELETE_TODO_LOADING";
+export const DELETE_TODO_SUCCESS = "DELETE_TODO_SUCCESS";
+export const DELETE_TODO_FAIL = "DELETE_TODO_FAIL";
+
+//수정
+export const MODIFY_TODO_LOADING = "MODIFY_TODO_LOADING";
+export const MODIFY_TODO_SUCCESS = "MODIFY_TODO_SUCCESS";
+export const MODIFY_TODO_FAIL = "MODIFY_TODO_FAIL";
+
+//토글 수정
+export const MODIFY_TOGGLE_LOADING = "MODIFY_TOGGLE_LOADING";
+export const MODIFY_TOGGLE_SUCCESS = "MODIFY_TOGGLE_SUCCESS";
+export const MODIFY_TOGGLE_FAIL = "MODIFY_TOGGLE_FAIL";
+```
+
+## **todoSagas.js**
+
+saga 파일로서
+watcher로 액션을 모니터링하고, worker로 함수를 실행한다.
+
+```javascript
+/* ---------------------------worker------------------------- */
+
+//조회
+function* GetTodoAsnc() {
+try {
+  const res = yield call(GetTodoHandler);
+  if (res.status === 200) {
+    //데이터를 정상적으로 받아왔다면
+    yield put(GetTodoSuccess(res.data));
+  }
+} catch (error) {
+  yield put(GetTodoFail(error.res.data));
+}
+}
+
+...     //이하 중략
+
+/* ---------------------------watcher------------------------- */
+//조회
+function* GetTodoData() {
+yield takeEvery(type.GET_TODO_LOADING, GetTodoAsnc);
+}
+
+...     //이하중략
+```
