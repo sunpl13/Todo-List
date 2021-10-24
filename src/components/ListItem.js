@@ -61,47 +61,43 @@ function ListItem(props) {
         NewTodo === "" || NewTodo === text ? ( //아무것도 입력하지 않거나 값이 기존 값과 동일하다면
           <div //아이콘을 동일하게 보여줌
             className="edit"
-            onClick={(e) => {
-              e.stopPropagation();
-              editToggleHandler();
-            }}
           >
             <div className="date">{active === id ? "" : date}</div>
             <img
               src={process.env.PUBLIC_URL + "/images/edit.png"}
               alt="수정버튼"
+              onClick={(e) => {
+                e.stopPropagation();
+                editToggleHandler();
+              }}
             />
           </div>
         ) : (
           //입력이 있다면 값을 다르게 보여줌
-          <div
-            className="edit"
-            onClick={(e) => {
-              e.stopPropagation();
-              onChange(id, NewTodo);
-              editToggleHandler();
-            }}
-          >
+          <div className="edit">
             <img
               src={process.env.PUBLIC_URL + "/images/check.png"}
               width="20"
               height="20"
               alt="수정확인 버튼"
+              onClick={(e) => {
+                e.stopPropagation();
+                onChange(id, NewTodo);
+                editToggleHandler();
+              }}
             />
           </div>
         )
       ) : (
-        <div
-          className="edit"
-          onClick={(e) => {
-            e.stopPropagation();
-            editToggleHandler();
-          }}
-        >
+        <div className="edit">
           <div className="date">{active === id ? "" : date}</div>
           <img
             src={process.env.PUBLIC_URL + "/images/edit.png"}
             alt="수정버튼"
+            onClick={(e) => {
+              e.stopPropagation();
+              editToggleHandler();
+            }}
           />
         </div>
       )}

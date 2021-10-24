@@ -14,16 +14,20 @@ function Insert() {
 
   //  todolist 생성 함수
   const insertHandler = () => {
-    //id 값이 주어지지 않을 때
-    dispatch(
-      CreateTodoLoading({
-        id: list.length === 0 ? 0 : list[list.length - 1].id + 1, //배열의 마지막 인덱스의 id 값에서 +1
-        content: todo,
-        createdAt: date,
-        isCheck: false,
-      })
-    );
-    /*     id 값이 주어졌을 때
+    //이미 추가된 리스트에 추가할 값이 있는지 확인
+    if (list.some((item) => item.content === todo)) {
+      alert("리스트에 이미 추가되어 있습니다!");
+    } else {
+      //id 값이 주어지지 않을 때
+      dispatch(
+        CreateTodoLoading({
+          id: list.length === 0 ? 0 : list[list.length - 1].id + 1, //배열의 마지막 인덱스의 id 값에서 +1
+          content: todo,
+          createdAt: date,
+          isCheck: false,
+        })
+      );
+      /*     id 값이 주어졌을 때
     dispatch(
       CreateTodoLoading({
         content: todo,
@@ -32,8 +36,9 @@ function Insert() {
       })
     );
     */
-    settodo("");
+    }
   };
+
   return (
     <div className="form">
       <input type="text" onChange={onchangeHandler} />
