@@ -58,6 +58,80 @@ redux-saga
 
 &nbsp;
 
+# 🎨실행환경
+
+> ## 구현한 서버환경 &nbsp; : &nbsp; `json-server`
+>
+> <br/>
+
+### **json-server의 json 파일 구조**
+
+```json
+{
+  "todoList": [
+    {
+      "id": 1,
+      "content": "커피마시기",
+      "createdAt": "2021-10-24T15:03:07.136Z",
+      "isCheck": false
+    }
+  ]
+}
+```
+
+ <br/>
+
+## <span style = "color : red">유의 사항!</span>
+
+## 1. todoSagas.js 54번째 줄
+
+실행 환경에 따라 `res.status`의 코드 번호가 달라질 수 있다.
+
+```javascript
+if (res.status === 201) {
+      //데이터를 정상적으로 받아왔다면
+
+      yield put(CreateTodoSuccess(res.data)); //
+    }
+```
+
+<br/>
+
+## 2. Insert.js 16줄(insertHandler함수)
+
+실행 환경에 따라 id값을 직접 줘야 할 수도, 주지 않아도 될 수도 있다.
+
+```javascript
+const insertHandler = () => {
+  //이미 추가된 리스트에 추가할 값이 있는지 확인
+  if (list.some((item) => item.content === todo)) {
+    alert("리스트에 이미 추가되어 있습니다!");
+  } else {
+    //id 값이 주어지지 않을 때
+    dispatch(
+      CreateTodoLoading({
+        id: list.length === 0 ? 0 : list[list.length - 1].id + 1, //배열의 마지막 인덱스의 id 값에서 +1
+        content: todo,
+        createdAt: date,
+        isCheck: false,
+      })
+    );
+
+    /*     id 값이 주어졌을 때
+    dispatch(
+      CreateTodoLoading({
+        content: todo,
+        createdAt: date,
+        isCheck: false,
+      })
+    );
+    */
+  }
+};
+```
+
+<br/>
+
 # 📁폴더구조
 
 &nbsp;
