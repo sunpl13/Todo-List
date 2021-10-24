@@ -50,6 +50,7 @@ function* CreateTodoAsnc({ payload }) {
   try {
     const res = yield call(CreateTodoHandler, payload);
     console.log(res);
+    //status 값에 따라 200으로 변경
     if (res.status === 201) {
       //데이터를 정상적으로 받아왔다면
 
