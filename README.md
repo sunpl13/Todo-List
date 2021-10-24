@@ -11,6 +11,31 @@
 &nbsp;
 &nbsp;
 &nbsp;
+<br/>
+<br/>
+
+# 📅실행예제
+
+## 실행영상
+
+![캘린더 실행 영상](https://user-images.githubusercontent.com/68778883/138595928-f7a121c7-d045-45bf-a702-4fd6b6f620a1.gif)
+<br/>
+<br/>
+
+## 오늘 날짜로 돌아오기
+
+![오늘 날짜로 돌아오기 버튼](https://user-images.githubusercontent.com/68778883/138595958-4ec99cb2-67d0-4471-a999-50aab50f3d75.gif)
+<br/>
+<br/>
+
+## 날짜 찾기
+
+![부가기능-날짜 찾기](https://user-images.githubusercontent.com/68778883/138595998-45a45c91-8a12-459d-8fa0-d7f6d67ad3ae.gif)
+&nbsp;
+&nbsp;
+&nbsp;
+<br/>
+<br/>
 
 # 📦패키지
 
