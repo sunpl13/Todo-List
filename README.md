@@ -16,24 +16,31 @@
 
 # 📅실행예제
 
-## 실행영상
+## 리스트 생성
 
-![캘린더 실행 영상](https://user-images.githubusercontent.com/68778883/138595928-f7a121c7-d045-45bf-a702-4fd6b6f620a1.gif)
+![생성](https://user-images.githubusercontent.com/68778883/138600909-6975a0aa-bdf1-4174-b64f-e5be6b998ada.gif)
 <br/>
 <br/>
 
-## 오늘 날짜로 돌아오기
+## 리스트 수정
 
-![오늘 날짜로 돌아오기 버튼](https://user-images.githubusercontent.com/68778883/138595958-4ec99cb2-67d0-4471-a999-50aab50f3d75.gif)
+![수정](https://user-images.githubusercontent.com/68778883/138600911-278cc05e-2d26-483b-9f73-d0397466bec7.gif)
 <br/>
 <br/>
 
-## 날짜 찾기
+## 리스트 삭제
 
-![부가기능-날짜 찾기](https://user-images.githubusercontent.com/68778883/138595998-45a45c91-8a12-459d-8fa0-d7f6d67ad3ae.gif)
+![삭제](https://user-images.githubusercontent.com/68778883/138600907-b311634d-47f4-468a-909c-05835ed5349c.gif)
 &nbsp;
 &nbsp;
 &nbsp;
+<br/>
+<br/>
+
+## 완료여부 체크
+
+![완료여부](https://user-images.githubusercontent.com/68778883/138600912-3a7958fb-c6bb-4b43-b324-944fb9a6d2f3.gif)
+
 <br/>
 <br/>
 
